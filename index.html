@@ -2,7 +2,7 @@
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Oxente Pastelaria e Sr Dog</title>
 
-<meta name="description" content="Pastelaria e hot dog em Solânea-PB. Veja o cardápio com preços, monte seu pedido e envie pelo WhatsApp. Entrega em Solânea e Bananeiras, ou retirada. Aberto de madrugada.">
+<meta name="description" content="Pastelaria e hot dog em Solânea-PB. Veja o cardápio com preços, monte seu pedido e envie pelo WhatsApp. Entrega em Solânea, Bananeiras e mais localidades, ou retirada. Aberto de madrugada.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap">
@@ -141,6 +141,7 @@ html{scrollbar-color:var(--line) var(--bg)}
 .cat>header{margin-bottom:6px}
 .cat h3{font-size:clamp(1.7rem,6.5vw,2.5rem);color:var(--yellow);display:flex;align-items:baseline;gap:6px 14px;flex-wrap:wrap;text-transform:uppercase;line-height:1.05}
 .cat h3 small{font:800 .95rem var(--f-body);color:var(--ink);text-transform:none}
+.cat .tip{color:var(--muted);margin-top:6px;font-size:.88rem;font-weight:600;max-width:52ch}
 .cat .intro{color:var(--muted);margin-top:6px;font-size:.95rem}
 .items{margin:0;padding:0;list-style:none}
 .item{display:grid;gap:10px;padding:18px 0 20px;border-bottom:2px dashed var(--line);min-width:0}
@@ -162,13 +163,9 @@ html{scrollbar-color:var(--line) var(--bg)}
 .xbtn{min-height:44px;padding:8px 14px;border-radius:8px;border:2px dashed var(--line);background:none;color:var(--ink);font:800 .92rem var(--f-body);cursor:pointer}
 .xbtn:hover{border-color:var(--yellow)}
 .xbtn[aria-expanded="true"]{border-style:solid;border-color:var(--yellow)}
-.extras,.removes{display:flex;flex-wrap:wrap;gap:8px}
-.extras label,.removes label{position:relative;cursor:pointer}
-.extras input,.removes input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
-.removes .lbl{flex-basis:100%}
-.removes span.n{display:block;padding:8px 12px;min-height:42px;border:2px solid var(--line);border-radius:8px;font-weight:700;font-size:.9rem}
-.removes input:checked+span{background:var(--panel-2);border-color:var(--red);color:var(--muted);text-decoration:line-through}
-.removes input:focus-visible+span{outline:3px solid var(--yellow);outline-offset:2px}
+.extras{display:flex;flex-wrap:wrap;gap:8px}
+.extras label{position:relative;cursor:pointer}
+.extras input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
 .extras span{display:block;padding:8px 12px;min-height:42px;border:2px solid var(--line);border-radius:8px;font-weight:700;font-size:.9rem;font-variant-numeric:tabular-nums}
 .extras input:checked+span{background:var(--panel-2);border-color:var(--yellow);color:var(--yellow)}
 .extras input:focus-visible+span{outline:3px solid var(--yellow);outline-offset:2px}
@@ -202,7 +199,17 @@ html{scrollbar-color:var(--line) var(--bg)}
 .qty button:hover{border-color:var(--yellow-ink)}
 .qty button svg{width:18px;height:18px}
 .qty output{min-width:36px;text-align:center;font:800 1.1rem var(--f-body)}
-.qty .rm{margin-left:auto;width:auto;padding:0 12px;font:800 .88rem var(--f-body);color:#5C3A22;display:block}
+.qty .rm{width:auto;padding:0 12px;font:800 .88rem var(--f-body);color:#5C3A22;display:block}
+.qty{flex-wrap:wrap}
+.lact{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.line .n small.sem{color:var(--yellow-ink);font-weight:800}
+.ing-list{display:grid;margin-top:10px}
+.ck{display:flex;align-items:center;gap:12px;min-height:50px;padding:6px 2px;border-bottom:2px dotted var(--paper-line);font-weight:700;cursor:pointer}
+.ck input{width:24px;height:24px;flex:none;margin:0;accent-color:var(--yellow-ink);cursor:pointer}
+.ck input:not(:checked)+span{text-decoration:line-through;color:#5C3A22;font-weight:600}
+.ing-note{font-weight:600;font-size:.92rem;color:#5C3A22;margin-top:10px}
+.ing-qty{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:14px;font-weight:700}
+.ing-qty select{min-height:46px;padding:0 .7em;border:2px solid var(--paper-line);border-radius:8px;background:#FFFBF0;color:var(--yellow-ink);font:700 1rem var(--f-body)}
 .disc{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 0;border-bottom:2px dotted var(--paper-line);font-weight:700}
 .disc b{font:400 1.05rem var(--f-display);white-space:nowrap}
 .compact .item{padding:12px 0}
@@ -350,7 +357,7 @@ footer small{color:var(--muted)}
     <div class="wrap">
       <div>
         <h1 id="h1">Deu fome em Solânea ou Bananeiras? <em>Pede no zap.</em></h1>
-        <p class="lead">Pastel, hot dog e batata recheada. Entregamos em Solânea e Bananeiras, ou você retira aqui.</p>
+        <p class="lead">Pastel, hot dog e batata recheada. Entregamos em Solânea, Bananeiras e mais localidades, ou você retira aqui.</p>
         <div class="cta">
           <a class="btn btn-cta btn-lg js-wa-generic" href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Pedir pelo WhatsApp</a>
           <a class="btn btn-ghost btn-lg" href="#cardapio">Ver cardápio</a>
@@ -460,7 +467,7 @@ footer small{color:var(--muted)}
         <h2 id="h-onde">Onde estamos</h2>
         <address class="addr">Oxente Pastelaria e Sr Dog<br>R. José Pessoa da Costa, 260<br>Centro, Solânea-PB · 58225-000</address>
         <p class="addr" style="margin-top:10px">WhatsApp: (83) 99144-3495</p>
-        <p class="addr" style="margin-top:10px;color:var(--yellow)">Entrega em Solânea e Bananeiras.</p>
+        <p class="addr" style="margin-top:10px;color:var(--yellow)">Entregamos em Solânea, Bananeiras, Chá do Lindolfo, Fazenda Velha e condomínios.</p>
         <div class="btns">
           <a class="btn btn-ghost" href="https://www.google.com/maps/place/Oxente+Pastelaria+e+Sr+Dog+-+R.+Jos%C3%A9+Pessoa+da+Costa,+260+-+Centro,+Sol%C3%A2nea+-+PB,+58225-000/" target="_blank" rel="noopener"><svg><use href="#i-pin"/></svg>Ver no Google Maps</a>
           <a class="btn btn-cta js-wa-generic" href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Fazer pedido</a>
@@ -501,7 +508,7 @@ footer small{color:var(--muted)}
   <div class="wrap">
     <div>
       <b>Oxente Pastelaria e Sr Dog</b>
-      <p style="margin-top:8px;color:var(--muted)">Pastéis regionais e hot dog em Solânea-PB. Entrega em Solânea e Bananeiras.</p>
+      <p style="margin-top:8px;color:var(--muted)">Pastéis regionais e hot dog em Solânea-PB. Entrega em Solânea, Bananeiras, Chá do Lindolfo, Fazenda Velha e condomínios.</p>
     </div>
     <ul>
       <li>R. José Pessoa da Costa, 260 · Centro, Solânea-PB</li>
@@ -542,8 +549,24 @@ footer small{color:var(--muted)}
   </div>
 </dialog>
 
+<dialog class="sheet" id="ing" aria-labelledby="ing-title">
+  <div class="cmd">
+    <div class="sh-top">
+      <div><h2 id="ing-title">Modificar ingredientes</h2><p class="sub" id="ing-sub"></p></div>
+      <button class="x" type="button" id="ing-x" aria-label="Fechar"><svg><use href="#i-x"/></svg></button>
+    </div>
+    <p class="ing-note">Desmarque o que você não quer. O preço não muda.</p>
+    <div class="ing-list" id="ing-list" role="group" aria-label="Ingredientes"></div>
+    <div class="ing-qty" id="ing-qty" hidden><label for="ing-n">Aplicar em</label><select id="ing-n"></select><span id="ing-of"></span></div>
+    <div class="cmd-foot">
+      <button class="btn btn-dark btn-lg" type="button" id="ing-save">Salvar</button>
+      <button class="clear" type="button" id="ing-cancel">Cancelar</button>
+    </div>
+  </div>
+</dialog>
+
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Restaurant","name":"Oxente Pastelaria e Sr Dog","servesCuisine":["Pastelaria","Hot dog"],"areaServed":["Solânea","Bananeiras"],"telephone":"+55 83 99144-3495","address":{"@type":"PostalAddress","streetAddress":"R. José Pessoa da Costa, 260","addressLocality":"Solânea","addressRegion":"PB","postalCode":"58225-000","addressCountry":"BR"},"sameAs":["https://www.instagram.com/oxente_pastelaria1/","https://linktr.ee/OxentePastelaria"],"hasMap":"https://www.google.com/maps/place/Oxente+Pastelaria+e+Sr+Dog+-+R.+Jos%C3%A9+Pessoa+da+Costa,+260+-+Centro,+Sol%C3%A2nea+-+PB,+58225-000/"}
+{"@context":"https://schema.org","@type":"Restaurant","name":"Oxente Pastelaria e Sr Dog","servesCuisine":["Pastelaria","Hot dog"],"areaServed":["Solânea","Bananeiras","Chá do Lindolfo","Fazenda Velha"],"telephone":"+55 83 99144-3495","address":{"@type":"PostalAddress","streetAddress":"R. José Pessoa da Costa, 260","addressLocality":"Solânea","addressRegion":"PB","postalCode":"58225-000","addressCountry":"BR"},"sameAs":["https://www.instagram.com/oxente_pastelaria1/","https://linktr.ee/OxentePastelaria"],"hasMap":"https://www.google.com/maps/place/Oxente+Pastelaria+e+Sr+Dog+-+R.+Jos%C3%A9+Pessoa+da+Costa,+260+-+Centro,+Sol%C3%A2nea+-+PB,+58225-000/"}
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -563,14 +586,17 @@ const BUSINESS = {
     { d: 'Sábado',  open: 1080, close: 1680 },
     { d: 'Domingo', open: 1080, close: 1680 }
   ],
-  /* Entrega: valores em centavos. Bananeiras tem duas regiões com frete diferente. */
+  /* Entrega: valores em centavos. Bananeiras tem duas regiões; condomínios têm frete único e pedem o nome do condomínio. */
   delivery: {
-    cities: [
-      { id: 'solanea', name: 'Solânea', fee: 400 },
-      { id: 'bananeiras', name: 'Bananeiras', regions: [
-        { id: 'baixo', name: 'Parte de baixo', fee: 700 },
-        { id: 'cima', name: 'Parte de cima', fee: 1000 }
-      ]}
+    places: [
+      { id: 'solanea', name: 'Solânea – Centro', short: 'Solânea', fee: 400 },
+      { id: 'bananeiras', name: 'Bananeiras', short: 'Bananeiras', regions: [
+        { id: 'baixa', name: 'Parte baixa', fee: 700 },
+        { id: 'alta', name: 'Parte alta', fee: 900 }
+      ]},
+      { id: 'cha', name: 'Chá do Lindolfo', short: 'Chá do Lindolfo', fee: 1600 },
+      { id: 'fazenda', name: 'Fazenda Velha', short: 'Fazenda Velha', fee: 600 },
+      { id: 'condominios', name: 'Condomínios', short: 'Condomínios', fee: 1600, condo: true }
     ]
   }
 };
@@ -637,13 +663,21 @@ const MENU = [
 ];
 
 /* Ingredientes removíveis: lidos das descrições oficiais do cardápio (nada inventado).
-   Ficam de fora: pastéis simples e doces, Fastio (tradicional) e Gaiato (doce). */
+   Ficam de fora: pastéis simples, Fastio (tradicional) e Gaiato (doce). */
 const parseIng = d => {
   const parts = d.replace(/\.$/, '').split(', ');
   const last = parts.pop().split(' e ');
   return parts.concat(last).map(x => x.trim()).filter(Boolean);
 };
 MENU.forEach(cat => {
+  if (cat.id === 'pasteis-doces') {
+    /* "Coco com chocolate. Marinado no açúcar e canela." → coco, chocolate, açúcar, canela */
+    cat.items.forEach(it => {
+      const [base, tail] = it.desc.split(' Marinado no ');
+      it.ingredients = parseIng(base.replace(' com ', ', ')).concat(tail ? parseIng(tail) : []);
+    });
+    return;
+  }
   if (!['pasteis-especiais', 'sr-dog', 'batatas'].includes(cat.id)) return;
   cat.items.forEach(it => { if (!['fastio', 'gaiato'].includes(it.id) && it.desc) it.ingredients = parseIng(it.desc); });
 });
@@ -674,72 +708,88 @@ function calc(list) {
   return { sum, disc, pairs, total: sum - disc };
 }
 const clean = v => String(v || '').replace(/\s+/g, ' ').trim();
+/* "Sem milho e cebola." / "Sem milho, cebola e tomate." */
+const semTxt = list => {
+  const l = list.map(x => String(x).toLowerCase());
+  return 'Sem ' + (l.length > 1 ? l.slice(0, -1).join(', ') + ' e ' + l[l.length - 1] : l[0]) + '.';
+};
+function placeOf(o) { return BUSINESS.delivery.places.find(x => x.id === o.place); }
+function regionOf(o) { const p = placeOf(o); return p && p.regions ? p.regions.find(x => x.id === o.region) : null; }
+/* Mensagem única do pedido: espelha exatamente o que a comanda mostra. */
 function cartMessage(list, o) {
   const c = calc(list), sh = shipping(o);
-  let t = 'NOVO PEDIDO — OXENTE PASTELARIA\n' + list.map(lineText).join('\n');
-  if (c.disc) t += '\nDesconto trufas (2 por R$ 5,00): −' + brl(c.disc);
-  t += '\nSubtotal: ' + brl(c.total);
+  const items = list.map(e => e.qty + 'x ' + lineLabel(e) + (e.removed && e.removed.length ? '\n- ' + semTxt(e.removed) : ''));
+  let t = '*OXENTE PASTELARIA E SR DOG*\n\n*MEU PEDIDO:*\n\n' + items.join('\n\n') + '\n\n*RESUMO DO PEDIDO:*\n\n';
+  if (c.disc) t += 'Promoção trufas (2 por R$ 5,00): −' + brl(c.disc) + '\n';
+  t += 'Subtotal: ' + brl(c.total) + '\n';
   if (o.mode === 'entrega') {
-    const city = BUSINESS.delivery.cities.find(x => x.id === o.city);
-    const reg = city && city.regions ? city.regions.find(x => x.id === o.region) : null;
-    t += '\nENTREGA:\nCidade: ' + city.name + '\nRua: ' + clean(o.street) + '\nNúmero: ' + clean(o.number);
-    if (reg) t += '\nRegião: ' + reg.name;
+    const p = placeOf(o), r = regionOf(o);
+    t += 'Entrega: ' + p.name + (r ? ' – ' + r.name : '') + '\n';
+  } else t += 'Retirada no estabelecimento\n';
+  t += 'Frete: ' + brl(sh.fee) + '\n*TOTAL: ' + brl(c.total + sh.fee) + '*';
+  if (o.mode === 'entrega') {
+    const p = placeOf(o);
+    t += '\n\n*DADOS PARA ENTREGA:*\n\nNome: ' + clean(o.name) + '\nEndereço: ' + clean(o.street) + '\nNúmero: ' + clean(o.number);
+    if (p.condo) t += '\nCondomínio: ' + clean(o.condo);
     if (clean(o.ref)) t += '\nReferência: ' + clean(o.ref);
-  } else {
-    t += '\nRETIRADA NO ESTABELECIMENTO';
+    t += '\n\n*Forma de recebimento: Entrega.*';
   }
-  t += '\nFrete: ' + brl(sh.fee) + '\nTOTAL: ' + brl(c.total + sh.fee);
   return t;
 }
 
 /* ============ 4b. ENTREGA, FRETE E VALIDAÇÃO ============ */
-const ORDER_KEY = 'oxente-order-v1';
-const CITIES = BUSINESS.delivery.cities;
-let order = { mode: '', city: '', region: '', street: '', number: '', ref: '' };
+const ORDER_KEY = 'oxente-order-v2';
+const PLACES = BUSINESS.delivery.places;
+let order = { mode: '', place: '', region: '', name: '', street: '', number: '', condo: '', ref: '' };
 let attempted = false;
 try {
   const o = JSON.parse(localStorage.getItem(ORDER_KEY) || '{}');
   if (o && typeof o === 'object') {
     if (o.mode === 'entrega' || o.mode === 'retirada') order.mode = o.mode;
-    const c = CITIES.find(x => x.id === o.city);
-    if (c) { order.city = c.id; if (c.regions && c.regions.some(r => r.id === o.region)) order.region = o.region; }
-    ['street', 'number', 'ref'].forEach(k => { if (typeof o[k] === 'string') order[k] = o[k].slice(0, 100); });
+    const p = PLACES.find(x => x.id === o.place);
+    if (p) { order.place = p.id; if (p.regions && p.regions.some(r => r.id === o.region)) order.region = o.region; }
+    ['name', 'street', 'number', 'condo', 'ref'].forEach(k => { if (typeof o[k] === 'string') order[k] = o[k].slice(0, 100); });
   }
 } catch (_) {}
 const saveOrder = () => { try { localStorage.setItem(ORDER_KEY, JSON.stringify(order)); } catch (_) {} };
 
-/* Frete: retirada não cobra; Solânea tem valor fixo; Bananeiras depende da região. */
+/* Frete: sempre calculado por tabela (o cliente nunca digita o valor). Cobrado uma vez por pedido. Retirada = R$ 0,00. */
 function shipping(o) {
   if (o.mode === 'retirada') return { fee: 0, known: true };
   if (o.mode !== 'entrega') return { fee: 0, known: false };
-  const c = CITIES.find(x => x.id === o.city);
-  if (!c) return { fee: 0, known: false };
-  if (c.regions) { const r = c.regions.find(x => x.id === o.region); return r ? { fee: r.fee, known: true } : { fee: 0, known: false }; }
-  return { fee: c.fee, known: true };
+  const p = placeOf(o);
+  if (!p) return { fee: 0, known: false };
+  if (p.regions) { const r = regionOf(o); return r ? { fee: r.fee, known: true } : { fee: 0, known: false }; }
+  return { fee: p.fee, known: true };
 }
 function missing(o) {
   const m = [];
   if (!o.mode) return [['mode', 'como receber']];
   if (o.mode === 'entrega') {
-    if (!o.city) m.push(['city', 'cidade']);
-    if (o.city === 'bananeiras' && !o.region) m.push(['region', 'região de Bananeiras']);
-    if (!clean(o.street)) m.push(['street', 'nome da rua']);
+    const p = placeOf(o);
+    if (!clean(o.name)) m.push(['name', 'seu nome']);
+    if (!p) m.push(['place', 'localidade']);
+    if (p && p.regions && !o.region) m.push(['region', 'região de Bananeiras']);
+    if (p && p.condo && !clean(o.condo)) m.push(['condo', 'nome do condomínio']);
+    if (!clean(o.street)) m.push(['street', 'endereço']);
     if (!clean(o.number)) m.push(['number', 'número']);
   }
   return m;
 }
 function deliveryHTML(i) {
   const radio = (f, v, label, extra) => '<label class="opt"><input type="radio" name="' + f + '-' + i + '" data-f="' + f + '" value="' + v + '"><span>' + label + (extra ? '<em>' + extra + '</em>' : '') + '</span></label>';
-  const bana = CITIES.find(c => c.regions);
+  const bana = PLACES.find(c => c.regions);
   const text = (f, label, attrs, err) => '<div class="fld" data-fld="' + f + '"><label class="t" for="' + f + '-' + i + '">' + label + '</label><input type="text" id="' + f + '-' + i + '" data-f="' + f + '" ' + attrs + '>' + (err ? '<p class="err">' + err + '</p>' : '') + '</div>';
   return '<div class="deliv">' +
     '<fieldset class="fld" data-fld="mode"><legend>Como você quer receber?</legend><div class="opts2">' + radio('mode', 'entrega', 'Entrega em domicílio') + radio('mode', 'retirada', 'Retirada no estabelecimento') + '</div><p class="err">Escolha entrega ou retirada.</p></fieldset>' +
     '<p class="pickup" data-show="retirada" hidden>Retire em R. José Pessoa da Costa, 260 · Centro, Solânea. Sem frete.</p>' +
     '<div data-show="entrega" hidden>' +
-      '<fieldset class="fld" data-fld="city"><legend>Cidade</legend><div class="opts2">' + CITIES.map(c => radio('city', c.id, c.name, c.fee ? 'Frete ' + brl(c.fee) : '')).join('') + '</div><p class="err">Escolha a cidade.</p></fieldset>' +
+      text('name', 'Seu nome', 'maxlength="60" autocomplete="name" aria-required="true" enterkeyhint="next"', 'Informe seu nome.') +
+      '<fieldset class="fld" data-fld="place"><legend>Localidade</legend><div class="opts2">' + PLACES.map(c => radio('place', c.id, c.name, c.regions ? brl(Math.min(...c.regions.map(r => r.fee))) + ' a ' + brl(Math.max(...c.regions.map(r => r.fee))) : 'Frete ' + brl(c.fee))).join('') + '</div><p class="err">Escolha a localidade.</p></fieldset>' +
       '<fieldset class="fld" data-fld="region" data-show="bananeiras" hidden><legend>Qual região de Bananeiras?</legend><div class="opts2">' + bana.regions.map(r => radio('region', r.id, r.name, 'Frete ' + brl(r.fee))).join('') + '</div><p class="err">Escolha a região de Bananeiras.</p></fieldset>' +
-      text('street', 'Nome da rua', 'maxlength="80" autocomplete="address-line1" aria-required="true" enterkeyhint="next"', 'Informe o nome da rua.') +
-      text('number', 'Número da residência', 'maxlength="12" autocomplete="off" aria-required="true" enterkeyhint="next"', 'Informe o número (ou S/N).') +
+      '<div data-show="condominios" hidden>' + text('condo', 'Nome do condomínio', 'maxlength="80" autocomplete="off" aria-required="true" enterkeyhint="next"', 'Informe o nome do condomínio.') + '</div>' +
+      text('street', 'Endereço ou nome da rua', 'maxlength="80" autocomplete="address-line1" aria-required="true" enterkeyhint="next"', 'Informe o endereço ou a rua.') +
+      text('number', 'Número ou identificação do imóvel', 'maxlength="30" autocomplete="off" aria-required="true" enterkeyhint="next"', 'Informe o número ou a identificação (ex.: casa 12, bloco B).') +
       text('ref', 'Ponto de referência <small>(opcional)</small>', 'maxlength="100" autocomplete="off" enterkeyhint="done"', '') +
     '</div></div>';
 }
@@ -748,7 +798,8 @@ $$('[data-cmd-delivery]').forEach((d, i) => { d.innerHTML = deliveryHTML(i); });
 function renderOrder() {
   const n = cartCount(), m = missing(order), sh = shipping(order), c = calc(cart);
   const ok = n > 0 && m.length === 0;
-  const ent = order.mode === 'entrega', bana = ent && order.city === 'bananeiras';
+  const p = placeOf(order);
+  const ent = order.mode === 'entrega', bana = ent && !!(p && p.regions), cond = ent && !!(p && p.condo);
   $$('[data-cmd-delivery]').forEach(d => { d.hidden = n === 0; });
   $$('[data-f]').forEach(el => {
     const v = order[el.dataset.f];
@@ -757,6 +808,7 @@ function renderOrder() {
   });
   $$('[data-show="entrega"]').forEach(el => { el.hidden = !ent; });
   $$('[data-show="bananeiras"]').forEach(el => { el.hidden = !bana; });
+  $$('[data-show="condominios"]').forEach(el => { el.hidden = !cond; });
   $$('[data-show="retirada"]').forEach(el => { el.hidden = order.mode !== 'retirada'; });
   $$('[data-fld]').forEach(w => {
     const bad = attempted && m.some(x => x[0] === w.dataset.fld);
@@ -767,7 +819,7 @@ function renderOrder() {
   $$('[data-cmd-feerow]').forEach(r => { r.hidden = n === 0 || !order.mode; });
   $$('[data-cmd-sub]').forEach(x => { x.textContent = brl(c.total); });
   $$('[data-cmd-feelbl]').forEach(x => { x.textContent = order.mode === 'retirada' ? 'Frete (retirada)' : 'Frete'; });
-  $$('[data-cmd-fee]').forEach(x => { x.textContent = sh.known ? brl(sh.fee) : (ent && order.city === 'bananeiras' ? 'escolha a região' : 'a definir'); });
+  $$('[data-cmd-fee]').forEach(x => { x.textContent = sh.known ? brl(sh.fee) : (bana ? 'escolha a região' : 'a definir'); });
   $$('[data-cmd-total]').forEach(x => { x.textContent = brl(c.total + sh.fee); });
   $$('[data-cmd-hint]').forEach(h => {
     const txt = n === 0 || ok ? '' : (order.mode ? 'Para enviar, falta: ' + m.map(x => x[1]).join(', ') + '.' : 'Escolha entrega ou retirada para enviar.');
@@ -787,7 +839,7 @@ document.addEventListener('change', e => {
   const t = e.target, f = t.dataset && t.dataset.f;
   if (!f || t.type !== 'radio') return;
   order[f] = t.value;
-  if (f === 'city') order.region = '';
+  if (f === 'place') order.region = '';
   saveOrder(); renderOrder();
 });
 
@@ -817,6 +869,54 @@ function changeQty(key, d) {
   save(); renderCart();
 }
 
+/* ---- Personalização de ingredientes (por unidade) ----
+   Cada linha da comanda agrupa unidades com a MESMA personalização. A chave da linha termina com os
+   índices dos ingredientes retirados; ao modificar k unidades, elas saem da linha e vão para a linha
+   com a nova chave (criada ou somada), então nada se perde e unidades diferentes nunca se misturam. */
+const itemById = id => { for (const c of MENU) { const it = c.items.find(i => i.id === id); if (it) return it; } return null; };
+const itemOf = e => itemById(e.key.split('|')[0]);
+const canMod = e => { const it = itemOf(e); return !!(it && it.ingredients && it.ingredients.length > 1); };
+const removedIdx = e => { const it = itemOf(e); const names = (e.removed || []).map(x => x.toLowerCase()); return it.ingredients.map((g, i) => names.includes(g.toLowerCase()) ? i : -1).filter(i => i >= 0); };
+const ing = $('#ing');
+let modKey = null, modOpener = null;
+function openMod(key, opener) {
+  const e = cart.find(x => x.key === key); if (!e || !canMod(e)) return;
+  const it = itemOf(e), off = removedIdx(e);
+  modKey = key; modOpener = opener;
+  $('#ing-sub').textContent = e.name + (e.size ? ' (' + e.size + ')' : '');
+  $('#ing-list').innerHTML = it.ingredients.map((g, i) => '<label class="ck"><input type="checkbox" value="' + i + '"' + (off.includes(i) ? '' : ' checked') + '><span>' + esc(g.charAt(0).toUpperCase() + g.slice(1)) + '</span></label>').join('');
+  const q = $('#ing-qty');
+  q.hidden = e.qty < 2;
+  if (e.qty > 1) {
+    $('#ing-n').innerHTML = Array.from({ length: e.qty }, (_, i) => '<option value="' + (i + 1) + '">' + (i + 1) + '</option>').join('');
+    $('#ing-of').textContent = 'de ' + e.qty + ' unidades';
+  }
+  ing.showModal();
+}
+function saveMod() {
+  const i = cart.findIndex(x => x.key === modKey); if (i < 0) { ing.close(); return; }
+  const e = cart[i], it = itemOf(e);
+  const k = e.qty > 1 ? Math.min(e.qty, Math.max(1, +$('#ing-n').value || 1)) : 1;
+  const off = $$('#ing-list input:not(:checked)').map(c => +c.value);
+  const parts = e.key.split('|');
+  const nk = [parts[0], parts[1] || '', parts[2] || '', off.join('.')].join('|');
+  if (nk !== e.key) {
+    const removed = off.map(j => it.ingredients[j]);
+    e.qty -= k;
+    const target = cart.find(x => x.key === nk);
+    if (target) target.qty += k;
+    else cart.splice(e.qty > 0 ? i + 1 : i, 0, { ...e, key: nk, removed, qty: k });
+    cart = cart.filter(x => x.qty > 0);
+    lastKey = nk; save(); renderCart();
+  }
+  ing.close();
+}
+$('#ing-save').addEventListener('click', saveMod);
+$('#ing-cancel').addEventListener('click', () => ing.close());
+$('#ing-x').addEventListener('click', () => ing.close());
+ing.addEventListener('click', e => { if (e.target === ing) ing.close(); });
+ing.addEventListener('close', () => { if (modOpener && document.contains(modOpener)) modOpener.focus(); modOpener = null; });
+
 const bar = $('#cartbar'), sheet = $('#sheet');
 function renderCart(added) {
   const n = cartCount(), total = cartTotal();
@@ -834,9 +934,9 @@ function renderCart(added) {
   const html = !n
     ? '<div class="empty"><p>Sua comanda está vazia. Toque em Adicionar nos itens do cardápio.</p><button class="btn btn-dark" type="button" data-close>Ver cardápio</button></div>'
     : cart.map(e => {
-        const sub = [e.size ? 'Tamanho ' + e.size : '', e.extras.length ? 'Adicionais: ' + e.extras.join(', ') : '', e.removed && e.removed.length ? 'Sem: ' + e.removed.join(', ') : ''].filter(Boolean).join(' · ');
-        return '<div class="line" data-key="' + esc(e.key) + '"><div class="n">' + esc(e.name) + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</div><div class="p">' + brl(e.unit * e.qty) + '</div>' +
-          '<div class="qty"><button type="button" data-d="-1" aria-label="Diminuir quantidade de ' + esc(e.name) + '"><svg><use href="#i-minus"/></svg></button><output aria-live="polite">' + e.qty + '</output><button type="button" data-d="1" aria-label="Aumentar quantidade de ' + esc(e.name) + '"><svg><use href="#i-plus"/></svg></button><button type="button" class="rm" data-rm>Remover</button></div></div>';
+        const sub = [e.size ? 'Tamanho ' + e.size : '', e.extras.length ? 'Adicionais: ' + e.extras.join(', ') : ''].filter(Boolean).join(' · ');
+        return '<div class="line" data-key="' + esc(e.key) + '"><div class="n">' + esc(e.name) + (sub ? '<small>' + esc(sub) + '</small>' : '') + (e.removed && e.removed.length ? '<small class="sem">' + esc(semTxt(e.removed)) + '</small>' : '') + '</div><div class="p">' + brl(e.unit * e.qty) + '</div>' +
+          '<div class="qty"><button type="button" data-d="-1" aria-label="Diminuir quantidade de ' + esc(e.name) + '"><svg><use href="#i-minus"/></svg></button><output aria-live="polite">' + e.qty + '</output><button type="button" data-d="1" aria-label="Aumentar quantidade de ' + esc(e.name) + '"><svg><use href="#i-plus"/></svg></button><span class="lact">' + (canMod(e) ? '<button type="button" class="rm" data-mod>Modificar ingredientes</button>' : '') + '<button type="button" class="rm" data-rm>Remover</button></span></div></div>';
       }).join('') + (calc(cart).disc ? '<div class="disc"><span>Promoção trufas: 2 por R$ 5,00</span><b>−' + brl(calc(cart).disc) + '</b></div>' : '');
   $$('[data-cmd-body]').forEach(b => { b.innerHTML = html; });
   if (motion && lastKey) {
@@ -857,6 +957,7 @@ document.addEventListener('click', e => {
     const b = e.target.closest('button');
     if (line && b) {
       if (b.hasAttribute('data-rm')) changeQty(line.dataset.key, -9999);
+      else if (b.hasAttribute('data-mod')) openMod(line.dataset.key, b);
       else if (b.dataset.d) changeQty(line.dataset.key, +b.dataset.d);
     }
     return;
@@ -898,11 +999,6 @@ function itemHTML(cat, it) {
         '<div class="extras" id="x-' + id + '" hidden role="group" aria-label="Adicionais de ' + esc(it.name) + '">' +
         it.extras.map((x, i) => '<label><input type="checkbox" value="' + i + '"><span>' + x.name + ' +' + brl(x.price).slice(3) + '</span></label>').join('') + '</div>';
     }
-    if (it.ingredients) {
-      optsHTML += '<div class="opts"><button class="xbtn rbtn" type="button" aria-expanded="false" aria-controls="r-' + id + '">Remover ingredientes</button></div>' +
-        '<div class="removes" id="r-' + id + '" hidden role="group" aria-label="Ingredientes para remover de ' + esc(it.name) + '"><span class="lbl">Toque no que você NÃO quer:</span>' +
-        it.ingredients.map((g, i) => '<label><input type="checkbox" value="' + i + '"><span class="n">' + esc(g.charAt(0).toUpperCase() + g.slice(1)) + '</span></label>').join('') + '</div>';
-    }
     actHTML = '<button class="add" type="button" data-add><svg><use href="#i-plus"/></svg><span>Adicionar</span></button>' +
       '<a class="wa" data-wa target="_blank" rel="noopener" href="#" aria-label="Pedir ' + esc(it.name) + ' no WhatsApp" title="Pedir só este no WhatsApp">' + WA_ICON + '</a>';
   }
@@ -919,7 +1015,7 @@ function render(query) {
     any = true;
     nav += '<li><a href="#cat-' + cat.id + '" data-nav="' + cat.id + '">' + cat.name + '</a></li>';
     html += '<section class="cat' + (cat.compact ? ' compact' : '') + '" id="cat-' + cat.id + '" aria-labelledby="h-' + cat.id + '"><header><h3 id="h-' + cat.id + '">' + cat.name + (cat.note ? ' <small>' + cat.note + '</small>' : '') + '</h3>' +
-      (cat.intro && !q ? '<p class="intro">' + cat.intro + '</p>' : '') + '</header><ul class="items">' + items.map(it => itemHTML(cat, it)).join('') + '</ul></section>';
+      (cat.intro && !q ? '<p class="intro">' + cat.intro + '</p>' : '') + (cat.items.some(i => i.ingredients) ? '<p class="tip">Não quer algum ingrediente? Adicione ao pedido e toque em “Modificar ingredientes” na comanda.</p>' : '') + '</header><ul class="items">' + items.map(it => itemHTML(cat, it)).join('') + '</ul></section>';
   });
   if (!any) {
     html = '<div class="none"><p><strong>Nada encontrado para “' + esc(query) + '”.</strong> Tente outra palavra ou pergunte no WhatsApp.</p>' +
@@ -937,16 +1033,15 @@ function findItem(li) {
 }
 function selection(li) {
   const { it } = findItem(li);
-  let unit = it.price, size = '', extras = [], removed = [], removedIds = [];
+  let unit = it.price, size = '', extras = [];
   if (it.variants) { const r = li.querySelector('input[type=radio]:checked'); const v = it.variants[+r.value]; unit = v.price; size = v.label; }
   if (it.extras) $$('.extras input:checked', li).forEach(c => { const x = it.extras[+c.value]; extras.push(x); unit += x.price; });
-  if (it.ingredients) $$('.removes input:checked', li).forEach(c => { removed.push(it.ingredients[+c.value]); removedIds.push(+c.value); });
-  return { it, unit, size, removed, removedIds, extras: extras.map(x => x.name), extraIds: extras.map(x => x.id) };
+  return { it, unit, size, extras: extras.map(x => x.name), extraIds: extras.map(x => x.id) };
 }
 function entryFor(li) {
   const s = selection(li);
   const cat = MENU.find(c => c.id === li.dataset.cat);
-  return { key: [s.it.id, s.size, s.extraIds.join('+'), s.removedIds.join('.')].join('|'), name: (cat.cartPrefix || '') + s.it.name, size: s.size, extras: s.extras, removed: s.removed, unit: s.unit, group: s.it.group || '' };
+  return { key: [s.it.id, s.size, s.extraIds.join('+'), ''].join('|'), name: (cat.cartPrefix || '') + s.it.name, size: s.size, extras: s.extras, removed: [], unit: s.unit, group: s.it.group || '' };
 }
 function refreshItem(li) {
   if (!li.querySelector('[data-add]')) return;
@@ -956,8 +1051,6 @@ function refreshItem(li) {
     p.textContent = brl(s.unit);
     if (motion) gsap.fromTo(p, { scale: 1.25 }, { scale: 1, duration: .4, ease: 'back.out(3)', clearProps: 'transform' });
   }
-  const rb = li.querySelector('.rbtn');
-  if (rb) rb.textContent = s.removed.length ? 'Remover ingredientes (' + s.removed.length + ')' : 'Remover ingredientes';
   li.querySelector('[data-wa]').href = WA(singleMessage({ ...entryFor(li), qty: 1 }));
 }
 
@@ -992,12 +1085,6 @@ root.addEventListener('click', e => {
     const li = add.closest('.item');
     addToCart(entryFor(li));
     flyToCart(add);
-    if (li.querySelector('.removes')) {
-      $$('.removes input:checked', li).forEach(c => { c.checked = false; });
-      const rb = li.querySelector('.rbtn'), box = li.querySelector('.removes');
-      rb.setAttribute('aria-expanded', 'false'); box.hidden = true;
-      refreshItem(li);
-    }
     const span = add.querySelector('span');
     add.classList.add('done'); add.querySelector('use').setAttribute('href', '#i-check'); span.textContent = 'Adicionado';
     clearTimeout(add._t);
@@ -1058,7 +1145,7 @@ function renderHours() {
 
 /* ============ 8. LETREIRO CORRIDO ============ */
 (function () {
-  const words = ['Pastéis', 'Hot dogs', 'Batatas', 'Trufas', 'Aberto de madrugada', 'Entrega em Solânea e Bananeiras', 'Retirada no balcão'];
+  const words = ['Pastéis', 'Hot dogs', 'Batatas', 'Trufas', 'Aberto de madrugada', 'Entrega em Solânea, Bananeiras e mais', 'Retirada no balcão'];
   const one = words.map(w => '<span>' + w + '</span>').join('');
   $('#tick').innerHTML = one + one + one + one;
 })();
