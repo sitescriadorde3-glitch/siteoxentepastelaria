@@ -23,6 +23,7 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hh) + 70px)}
 body{background:var(--bg);color:var(--ink);font:500 16px/1.5 var(--f-body);-webkit-text-size-adjust:100%;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
@@ -161,9 +162,13 @@ html{scrollbar-color:var(--line) var(--bg)}
 .xbtn{min-height:44px;padding:8px 14px;border-radius:8px;border:2px dashed var(--line);background:none;color:var(--ink);font:800 .92rem var(--f-body);cursor:pointer}
 .xbtn:hover{border-color:var(--yellow)}
 .xbtn[aria-expanded="true"]{border-style:solid;border-color:var(--yellow)}
-.extras{display:flex;flex-wrap:wrap;gap:8px}
-.extras label{position:relative;cursor:pointer}
-.extras input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.extras,.removes{display:flex;flex-wrap:wrap;gap:8px}
+.extras label,.removes label{position:relative;cursor:pointer}
+.extras input,.removes input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.removes .lbl{flex-basis:100%}
+.removes span.n{display:block;padding:8px 12px;min-height:42px;border:2px solid var(--line);border-radius:8px;font-weight:700;font-size:.9rem}
+.removes input:checked+span{background:var(--panel-2);border-color:var(--red);color:var(--muted);text-decoration:line-through}
+.removes input:focus-visible+span{outline:3px solid var(--yellow);outline-offset:2px}
 .extras span{display:block;padding:8px 12px;min-height:42px;border:2px solid var(--line);border-radius:8px;font-weight:700;font-size:.9rem;font-variant-numeric:tabular-nums}
 .extras input:checked+span{background:var(--panel-2);border-color:var(--yellow);color:var(--yellow)}
 .extras input:focus-visible+span{outline:3px solid var(--yellow);outline-offset:2px}
@@ -205,7 +210,31 @@ html{scrollbar-color:var(--line) var(--bg)}
 .cmd-foot{display:grid;gap:12px;margin-top:6px}
 .total{display:flex;justify-content:space-between;align-items:baseline;font-weight:800;padding-top:8px}
 .total b{font:400 2rem var(--f-display);font-variant-numeric:tabular-nums}
-.cmd-foot .btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.cmd-foot .btn[aria-disabled="true"]{opacity:.5}
+.sum{display:grid;gap:0}
+.srow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:6px 0;font-weight:700}
+.srow b{font:400 1.05rem var(--f-display);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sum .total{margin-top:4px;border-top:2px solid var(--yellow-ink)}
+.hint{font-size:.88rem;font-weight:700;color:#5C3A22;text-align:center;margin-top:-4px}
+.deliv{display:grid;gap:16px;margin-top:16px;padding-top:16px;border-top:2px dashed var(--paper-line)}
+.deliv [data-show]:not(fieldset){display:grid;gap:16px}
+.deliv fieldset{border:0;margin:0;padding:0;min-inline-size:0}
+.deliv legend,.deliv label.t{display:block;padding:0;margin-bottom:6px;font-weight:800;font-size:.95rem}
+.deliv label.t small{font-weight:600;color:#5C3A22}
+.opts2{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:8px}
+.opt{position:relative;cursor:pointer}
+.opt input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.opt span{display:flex;flex-direction:column;justify-content:center;min-height:50px;padding:8px 12px;border:2px solid var(--paper-line);border-radius:8px;font-weight:800;line-height:1.2;transition:background .15s,border-color .15s,color .15s}
+.opt em{font:700 .85rem var(--f-body);font-style:normal;color:#5C3A22;font-variant-numeric:tabular-nums}
+.opt input:checked+span{background:var(--yellow-ink);border-color:var(--yellow-ink);color:var(--yellow)}
+.opt input:checked+span em{color:var(--paper)}
+.opt input:focus-visible+span{outline:3px solid var(--yellow-ink);outline-offset:2px}
+.deliv input[type=text]{width:100%;min-height:50px;padding:.55em .85em;border:2px solid var(--paper-line);border-radius:8px;background:#FFFBF0;color:var(--yellow-ink);font:600 1rem var(--f-body);caret-color:var(--yellow-ink)}
+.deliv input[type=text]:focus{border-color:var(--yellow-ink)}
+.err{display:none;margin:5px 0 0;color:#A3261A;font-weight:700;font-size:.88rem}
+.bad .err{display:block}
+.bad input[type=text],.bad .opt span{border-color:#A3261A}
+.pickup{font-weight:600;font-size:.92rem;color:#5C3A22}
 .clear{background:none;border:0;color:#5C3A22;font:700 .9rem var(--f-body);text-decoration:underline;cursor:pointer;justify-self:center;min-height:40px}
 .cartbar{position:fixed;left:0;right:0;bottom:0;z-index:55;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));pointer-events:none}
 .cartbar button{pointer-events:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;max-width:640px;margin-inline:auto;min-height:58px;padding:10px 18px;border:0;border-radius:10px;background:var(--cta);color:var(--cta-ink);font:800 1.05rem var(--f-body);cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.55)}
@@ -408,9 +437,15 @@ footer small{color:var(--muted)}
             <h2>Sua comanda</h2>
             <p class="sub">Oxente Pastelaria e Sr Dog</p>
             <div class="cmd-body" data-cmd-body></div>
+            <div data-cmd-delivery hidden></div>
             <div class="cmd-foot">
-              <div class="total"><span>Total</span><b data-cmd-total>R$ 0,00</b></div>
+              <div class="sum">
+                <div class="srow" data-cmd-subrow hidden><span>Subtotal</span><b data-cmd-sub>R$ 0,00</b></div>
+                <div class="srow" data-cmd-feerow hidden><span data-cmd-feelbl>Frete</span><b data-cmd-fee>R$ 0,00</b></div>
+                <div class="total"><span>Total</span><b data-cmd-total>R$ 0,00</b></div>
+              </div>
               <a class="btn btn-cta btn-lg" data-cmd-send href="#" target="_blank" rel="noopener" aria-disabled="true"><svg><use href="#i-wa"/></svg><span>Finalizar no WhatsApp</span></a>
+      <p class="hint" data-cmd-hint role="status" hidden></p>
               <button class="clear" type="button" data-cmd-clear>Limpar comanda</button>
             </div>
           </div>
@@ -493,9 +528,15 @@ footer small{color:var(--muted)}
       <button class="x" type="button" id="close-cart" aria-label="Fechar comanda"><svg><use href="#i-x"/></svg></button>
     </div>
     <div class="cmd-body" data-cmd-body></div>
+    <div data-cmd-delivery hidden></div>
     <div class="cmd-foot">
-      <div class="total"><span>Total</span><b data-cmd-total>R$ 0,00</b></div>
+      <div class="sum">
+        <div class="srow" data-cmd-subrow hidden><span>Subtotal</span><b data-cmd-sub>R$ 0,00</b></div>
+        <div class="srow" data-cmd-feerow hidden><span data-cmd-feelbl>Frete</span><b data-cmd-fee>R$ 0,00</b></div>
+        <div class="total"><span>Total</span><b data-cmd-total>R$ 0,00</b></div>
+      </div>
       <a class="btn btn-cta btn-lg" data-cmd-send href="#" target="_blank" rel="noopener" aria-disabled="true"><svg><use href="#i-wa"/></svg><span>Finalizar no WhatsApp</span></a>
+      <p class="hint" data-cmd-hint role="status" hidden></p>
       <button class="clear" type="button" data-cmd-clear>Limpar comanda</button>
     </div>
   </div>
@@ -521,7 +562,17 @@ const BUSINESS = {
     { d: 'Sexta',   open: 1080, close: 1680 },
     { d: 'Sábado',  open: 1080, close: 1680 },
     { d: 'Domingo', open: 1080, close: 1680 }
-  ]
+  ],
+  /* Entrega: valores em centavos. Bananeiras tem duas regiões com frete diferente. */
+  delivery: {
+    cities: [
+      { id: 'solanea', name: 'Solânea', fee: 400 },
+      { id: 'bananeiras', name: 'Bananeiras', regions: [
+        { id: 'baixo', name: 'Parte de baixo', fee: 700 },
+        { id: 'cima', name: 'Parte de cima', fee: 1000 }
+      ]}
+    ]
+  }
 };
 
 /* ============ 2. DADOS DO CARDÁPIO (preços em centavos, copiados das imagens oficiais) ============ */
@@ -585,6 +636,18 @@ const MENU = [
   ]}
 ];
 
+/* Ingredientes removíveis: lidos das descrições oficiais do cardápio (nada inventado).
+   Ficam de fora: pastéis simples e doces, Fastio (tradicional) e Gaiato (doce). */
+const parseIng = d => {
+  const parts = d.replace(/\.$/, '').split(', ');
+  const last = parts.pop().split(' e ');
+  return parts.concat(last).map(x => x.trim()).filter(Boolean);
+};
+MENU.forEach(cat => {
+  if (!['pasteis-especiais', 'sr-dog', 'batatas'].includes(cat.id)) return;
+  cat.items.forEach(it => { if (!['fastio', 'gaiato'].includes(it.id) && it.desc) it.ingredients = parseIng(it.desc); });
+});
+
 /* ============ 3. UTILITÁRIOS ============ */
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
@@ -599,7 +662,10 @@ if (motion) gsap.registerPlugin(ScrollTrigger);
 
 /* ============ 4. MENSAGENS DO WHATSAPP ============ */
 function lineLabel(e) { return e.name + (e.size ? ' (' + e.size + ')' : '') + (e.extras.length ? ' + ' + e.extras.join(', ') : ''); }
-function lineText(e) { return e.qty + 'x ' + lineLabel(e) + ' — ' + brl(e.unit * e.qty); }
+function lineText(e) {
+  const sem = Array.isArray(e.removed) && e.removed.length ? '\nSem ' + e.removed.map(x => String(x).toLowerCase()).join(' e sem ') + '.' : '';
+  return e.qty + 'x ' + lineLabel(e) + ' — ' + brl(e.unit * e.qty) + sem;
+}
 function singleMessage(e) { return 'Olá! Gostaria de pedir:\n' + lineText(e); }
 function calc(list) {
   let sum = 0, tn = 0;
@@ -607,19 +673,130 @@ function calc(list) {
   const pairs = Math.floor(tn / 2), disc = pairs * (2 * TRUFA_UNIT - TRUFA_PAIR);
   return { sum, disc, pairs, total: sum - disc };
 }
-function cartMessage(list) {
-  const c = calc(list);
-  return 'Olá! Gostaria de fazer um pedido:\n\n' + list.map(lineText).join('\n') +
-    (c.disc ? '\n\nDesconto trufas (2 por R$ 5,00): −' + brl(c.disc) : '') +
-    '\n\nTotal: ' + brl(c.total) + '\n\nAguardo confirmação do pedido.';
+const clean = v => String(v || '').replace(/\s+/g, ' ').trim();
+function cartMessage(list, o) {
+  const c = calc(list), sh = shipping(o);
+  let t = 'NOVO PEDIDO — OXENTE PASTELARIA\n' + list.map(lineText).join('\n');
+  if (c.disc) t += '\nDesconto trufas (2 por R$ 5,00): −' + brl(c.disc);
+  t += '\nSubtotal: ' + brl(c.total);
+  if (o.mode === 'entrega') {
+    const city = BUSINESS.delivery.cities.find(x => x.id === o.city);
+    const reg = city && city.regions ? city.regions.find(x => x.id === o.region) : null;
+    t += '\nENTREGA:\nCidade: ' + city.name + '\nRua: ' + clean(o.street) + '\nNúmero: ' + clean(o.number);
+    if (reg) t += '\nRegião: ' + reg.name;
+    if (clean(o.ref)) t += '\nReferência: ' + clean(o.ref);
+  } else {
+    t += '\nRETIRADA NO ESTABELECIMENTO';
+  }
+  t += '\nFrete: ' + brl(sh.fee) + '\nTOTAL: ' + brl(c.total + sh.fee);
+  return t;
 }
+
+/* ============ 4b. ENTREGA, FRETE E VALIDAÇÃO ============ */
+const ORDER_KEY = 'oxente-order-v1';
+const CITIES = BUSINESS.delivery.cities;
+let order = { mode: '', city: '', region: '', street: '', number: '', ref: '' };
+let attempted = false;
+try {
+  const o = JSON.parse(localStorage.getItem(ORDER_KEY) || '{}');
+  if (o && typeof o === 'object') {
+    if (o.mode === 'entrega' || o.mode === 'retirada') order.mode = o.mode;
+    const c = CITIES.find(x => x.id === o.city);
+    if (c) { order.city = c.id; if (c.regions && c.regions.some(r => r.id === o.region)) order.region = o.region; }
+    ['street', 'number', 'ref'].forEach(k => { if (typeof o[k] === 'string') order[k] = o[k].slice(0, 100); });
+  }
+} catch (_) {}
+const saveOrder = () => { try { localStorage.setItem(ORDER_KEY, JSON.stringify(order)); } catch (_) {} };
+
+/* Frete: retirada não cobra; Solânea tem valor fixo; Bananeiras depende da região. */
+function shipping(o) {
+  if (o.mode === 'retirada') return { fee: 0, known: true };
+  if (o.mode !== 'entrega') return { fee: 0, known: false };
+  const c = CITIES.find(x => x.id === o.city);
+  if (!c) return { fee: 0, known: false };
+  if (c.regions) { const r = c.regions.find(x => x.id === o.region); return r ? { fee: r.fee, known: true } : { fee: 0, known: false }; }
+  return { fee: c.fee, known: true };
+}
+function missing(o) {
+  const m = [];
+  if (!o.mode) return [['mode', 'como receber']];
+  if (o.mode === 'entrega') {
+    if (!o.city) m.push(['city', 'cidade']);
+    if (o.city === 'bananeiras' && !o.region) m.push(['region', 'região de Bananeiras']);
+    if (!clean(o.street)) m.push(['street', 'nome da rua']);
+    if (!clean(o.number)) m.push(['number', 'número']);
+  }
+  return m;
+}
+function deliveryHTML(i) {
+  const radio = (f, v, label, extra) => '<label class="opt"><input type="radio" name="' + f + '-' + i + '" data-f="' + f + '" value="' + v + '"><span>' + label + (extra ? '<em>' + extra + '</em>' : '') + '</span></label>';
+  const bana = CITIES.find(c => c.regions);
+  const text = (f, label, attrs, err) => '<div class="fld" data-fld="' + f + '"><label class="t" for="' + f + '-' + i + '">' + label + '</label><input type="text" id="' + f + '-' + i + '" data-f="' + f + '" ' + attrs + '>' + (err ? '<p class="err">' + err + '</p>' : '') + '</div>';
+  return '<div class="deliv">' +
+    '<fieldset class="fld" data-fld="mode"><legend>Como você quer receber?</legend><div class="opts2">' + radio('mode', 'entrega', 'Entrega em domicílio') + radio('mode', 'retirada', 'Retirada no estabelecimento') + '</div><p class="err">Escolha entrega ou retirada.</p></fieldset>' +
+    '<p class="pickup" data-show="retirada" hidden>Retire em R. José Pessoa da Costa, 260 · Centro, Solânea. Sem frete.</p>' +
+    '<div data-show="entrega" hidden>' +
+      '<fieldset class="fld" data-fld="city"><legend>Cidade</legend><div class="opts2">' + CITIES.map(c => radio('city', c.id, c.name, c.fee ? 'Frete ' + brl(c.fee) : '')).join('') + '</div><p class="err">Escolha a cidade.</p></fieldset>' +
+      '<fieldset class="fld" data-fld="region" data-show="bananeiras" hidden><legend>Qual região de Bananeiras?</legend><div class="opts2">' + bana.regions.map(r => radio('region', r.id, r.name, 'Frete ' + brl(r.fee))).join('') + '</div><p class="err">Escolha a região de Bananeiras.</p></fieldset>' +
+      text('street', 'Nome da rua', 'maxlength="80" autocomplete="address-line1" aria-required="true" enterkeyhint="next"', 'Informe o nome da rua.') +
+      text('number', 'Número da residência', 'maxlength="12" autocomplete="off" aria-required="true" enterkeyhint="next"', 'Informe o número (ou S/N).') +
+      text('ref', 'Ponto de referência <small>(opcional)</small>', 'maxlength="100" autocomplete="off" enterkeyhint="done"', '') +
+    '</div></div>';
+}
+$$('[data-cmd-delivery]').forEach((d, i) => { d.innerHTML = deliveryHTML(i); });
+
+function renderOrder() {
+  const n = cartCount(), m = missing(order), sh = shipping(order), c = calc(cart);
+  const ok = n > 0 && m.length === 0;
+  const ent = order.mode === 'entrega', bana = ent && order.city === 'bananeiras';
+  $$('[data-cmd-delivery]').forEach(d => { d.hidden = n === 0; });
+  $$('[data-f]').forEach(el => {
+    const v = order[el.dataset.f];
+    if (el.type === 'radio') el.checked = v === el.value;
+    else if (el.value !== v) el.value = v;
+  });
+  $$('[data-show="entrega"]').forEach(el => { el.hidden = !ent; });
+  $$('[data-show="bananeiras"]').forEach(el => { el.hidden = !bana; });
+  $$('[data-show="retirada"]').forEach(el => { el.hidden = order.mode !== 'retirada'; });
+  $$('[data-fld]').forEach(w => {
+    const bad = attempted && m.some(x => x[0] === w.dataset.fld);
+    w.classList.toggle('bad', bad);
+    $$('input[type=text]', w).forEach(i => i.setAttribute('aria-invalid', bad ? 'true' : 'false'));
+  });
+  $$('[data-cmd-subrow]').forEach(r => { r.hidden = n === 0; });
+  $$('[data-cmd-feerow]').forEach(r => { r.hidden = n === 0 || !order.mode; });
+  $$('[data-cmd-sub]').forEach(x => { x.textContent = brl(c.total); });
+  $$('[data-cmd-feelbl]').forEach(x => { x.textContent = order.mode === 'retirada' ? 'Frete (retirada)' : 'Frete'; });
+  $$('[data-cmd-fee]').forEach(x => { x.textContent = sh.known ? brl(sh.fee) : (ent && order.city === 'bananeiras' ? 'escolha a região' : 'a definir'); });
+  $$('[data-cmd-total]').forEach(x => { x.textContent = brl(c.total + sh.fee); });
+  $$('[data-cmd-hint]').forEach(h => {
+    const txt = n === 0 || ok ? '' : (order.mode ? 'Para enviar, falta: ' + m.map(x => x[1]).join(', ') + '.' : 'Escolha entrega ou retirada para enviar.');
+    h.textContent = txt; h.hidden = !txt;
+  });
+  $$('[data-cmd-send]').forEach(a => {
+    a.setAttribute('aria-disabled', ok ? 'false' : 'true');
+    a.href = ok ? WA(cartMessage(cart, order)) : '#';
+  });
+}
+document.addEventListener('input', e => {
+  const f = e.target.dataset && e.target.dataset.f;
+  if (!f || e.target.type === 'radio') return;
+  order[f] = e.target.value; saveOrder(); renderOrder();
+});
+document.addEventListener('change', e => {
+  const t = e.target, f = t.dataset && t.dataset.f;
+  if (!f || t.type !== 'radio') return;
+  order[f] = t.value;
+  if (f === 'city') order.region = '';
+  saveOrder(); renderOrder();
+});
 
 /* ============ 5. CARRINHO ============ */
 const KEY = 'oxente-cart-v2';
 let cart = [];
 try {
   const raw = JSON.parse(localStorage.getItem(KEY) || '[]');
-  if (Array.isArray(raw)) cart = raw.filter(e => e && typeof e.key === 'string' && Number.isInteger(e.unit) && e.unit > 0 && Number.isInteger(e.qty) && e.qty > 0 && Array.isArray(e.extras) && typeof e.name === 'string');
+  if (Array.isArray(raw)) cart = raw.filter(e => e && typeof e.key === 'string' && Number.isInteger(e.unit) && e.unit > 0 && Number.isInteger(e.qty) && e.qty > 0 && Array.isArray(e.extras) && typeof e.name === 'string').map(e => ({ ...e, removed: Array.isArray(e.removed) ? e.removed.filter(x => typeof x === 'string') : [] }));
 } catch (_) {}
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(cart)); } catch (_) {} };
 const cartTotal = () => calc(cart).total;
@@ -648,7 +825,7 @@ function renderCart(added) {
   if (motion && n && !was) gsap.fromTo(bar, { yPercent: 120 }, { yPercent: 0, duration: .7, ease: 'back.out(1.7)', clearProps: 'transform' });
   if (motion && added && was) gsap.fromTo('#open-cart', { scale: 1 }, { scale: 1.045, duration: .13, yoyo: true, repeat: 1, ease: 'power2.out', clearProps: 'transform' });
   $('#cb-count').textContent = n + (n === 1 ? ' item' : ' itens');
-  const totals = $$('#cb-total, [data-cmd-total]');
+  const totals = $$('#cb-total, [data-cmd-sub]');
   if (motion && shownTotal !== total) {
     const o = { v: shownTotal };
     gsap.to(o, { v: total, duration: .6, ease: 'power3.out', overwrite: 'auto', onUpdate: () => totals.forEach(t => t.textContent = brl(Math.round(o.v))), onComplete: () => totals.forEach(t => t.textContent = brl(total)) });
@@ -657,7 +834,7 @@ function renderCart(added) {
   const html = !n
     ? '<div class="empty"><p>Sua comanda está vazia. Toque em Adicionar nos itens do cardápio.</p><button class="btn btn-dark" type="button" data-close>Ver cardápio</button></div>'
     : cart.map(e => {
-        const sub = [e.size ? 'Tamanho ' + e.size : '', e.extras.length ? 'Adicionais: ' + e.extras.join(', ') : ''].filter(Boolean).join(' · ');
+        const sub = [e.size ? 'Tamanho ' + e.size : '', e.extras.length ? 'Adicionais: ' + e.extras.join(', ') : '', e.removed && e.removed.length ? 'Sem: ' + e.removed.join(', ') : ''].filter(Boolean).join(' · ');
         return '<div class="line" data-key="' + esc(e.key) + '"><div class="n">' + esc(e.name) + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</div><div class="p">' + brl(e.unit * e.qty) + '</div>' +
           '<div class="qty"><button type="button" data-d="-1" aria-label="Diminuir quantidade de ' + esc(e.name) + '"><svg><use href="#i-minus"/></svg></button><output aria-live="polite">' + e.qty + '</output><button type="button" data-d="1" aria-label="Aumentar quantidade de ' + esc(e.name) + '"><svg><use href="#i-plus"/></svg></button><button type="button" class="rm" data-rm>Remover</button></div></div>';
       }).join('') + (calc(cart).disc ? '<div class="disc"><span>Promoção trufas: 2 por R$ 5,00</span><b>−' + brl(calc(cart).disc) + '</b></div>' : '');
@@ -667,12 +844,8 @@ function renderCart(added) {
       gsap.fromTo(l, { backgroundColor: 'rgba(255,184,0,.55)', x: -10 }, { backgroundColor: 'rgba(255,184,0,0)', x: 0, duration: .9, ease: 'power3.out', clearProps: 'backgroundColor,transform' });
     });
   }
-  $$('[data-cmd-send]').forEach(a => {
-    a.setAttribute('aria-disabled', n ? 'false' : 'true');
-    a.tabIndex = n ? 0 : -1;
-    a.href = n ? WA(cartMessage(cart)) : '#';
-  });
   $$('[data-cmd-clear]').forEach(c => { c.hidden = !n; });
+  renderOrder();
 }
 $('#open-cart').addEventListener('click', () => sheet.showModal());
 $('#close-cart').addEventListener('click', () => sheet.close());
@@ -691,7 +864,13 @@ document.addEventListener('click', e => {
   if (e.target.closest('[data-cmd-clear]')) { cart = []; lastKey = null; save(); renderCart(); return; }
   const send = e.target.closest('[data-cmd-send]');
   if (send) {
-    if (send.getAttribute('aria-disabled') === 'true') { e.preventDefault(); return; }
+    if (send.getAttribute('aria-disabled') === 'true') {
+      e.preventDefault();
+      attempted = true; renderOrder();
+      const bad = $('.bad', send.closest('.cmd'));
+      const f = bad && $('input', bad); if (f) f.focus();
+      return;
+    }
     const t = send.querySelector('span'); const old = t.textContent;
     t.textContent = 'Abrindo o WhatsApp…';
     setTimeout(() => { t.textContent = old; }, 2500);
@@ -718,6 +897,11 @@ function itemHTML(cat, it) {
       optsHTML = '<div class="opts"><button class="xbtn" type="button" aria-expanded="false" aria-controls="x-' + id + '">+ Adicionais</button></div>' +
         '<div class="extras" id="x-' + id + '" hidden role="group" aria-label="Adicionais de ' + esc(it.name) + '">' +
         it.extras.map((x, i) => '<label><input type="checkbox" value="' + i + '"><span>' + x.name + ' +' + brl(x.price).slice(3) + '</span></label>').join('') + '</div>';
+    }
+    if (it.ingredients) {
+      optsHTML += '<div class="opts"><button class="xbtn rbtn" type="button" aria-expanded="false" aria-controls="r-' + id + '">Remover ingredientes</button></div>' +
+        '<div class="removes" id="r-' + id + '" hidden role="group" aria-label="Ingredientes para remover de ' + esc(it.name) + '"><span class="lbl">Toque no que você NÃO quer:</span>' +
+        it.ingredients.map((g, i) => '<label><input type="checkbox" value="' + i + '"><span class="n">' + esc(g.charAt(0).toUpperCase() + g.slice(1)) + '</span></label>').join('') + '</div>';
     }
     actHTML = '<button class="add" type="button" data-add><svg><use href="#i-plus"/></svg><span>Adicionar</span></button>' +
       '<a class="wa" data-wa target="_blank" rel="noopener" href="#" aria-label="Pedir ' + esc(it.name) + ' no WhatsApp" title="Pedir só este no WhatsApp">' + WA_ICON + '</a>';
@@ -753,15 +937,16 @@ function findItem(li) {
 }
 function selection(li) {
   const { it } = findItem(li);
-  let unit = it.price, size = '', extras = [];
+  let unit = it.price, size = '', extras = [], removed = [], removedIds = [];
   if (it.variants) { const r = li.querySelector('input[type=radio]:checked'); const v = it.variants[+r.value]; unit = v.price; size = v.label; }
   if (it.extras) $$('.extras input:checked', li).forEach(c => { const x = it.extras[+c.value]; extras.push(x); unit += x.price; });
-  return { it, unit, size, extras: extras.map(x => x.name), extraIds: extras.map(x => x.id) };
+  if (it.ingredients) $$('.removes input:checked', li).forEach(c => { removed.push(it.ingredients[+c.value]); removedIds.push(+c.value); });
+  return { it, unit, size, removed, removedIds, extras: extras.map(x => x.name), extraIds: extras.map(x => x.id) };
 }
 function entryFor(li) {
   const s = selection(li);
   const cat = MENU.find(c => c.id === li.dataset.cat);
-  return { key: [s.it.id, s.size, s.extraIds.join('+')].join('|'), name: (cat.cartPrefix || '') + s.it.name, size: s.size, extras: s.extras, unit: s.unit, group: s.it.group || '' };
+  return { key: [s.it.id, s.size, s.extraIds.join('+'), s.removedIds.join('.')].join('|'), name: (cat.cartPrefix || '') + s.it.name, size: s.size, extras: s.extras, removed: s.removed, unit: s.unit, group: s.it.group || '' };
 }
 function refreshItem(li) {
   if (!li.querySelector('[data-add]')) return;
@@ -771,6 +956,8 @@ function refreshItem(li) {
     p.textContent = brl(s.unit);
     if (motion) gsap.fromTo(p, { scale: 1.25 }, { scale: 1, duration: .4, ease: 'back.out(3)', clearProps: 'transform' });
   }
+  const rb = li.querySelector('.rbtn');
+  if (rb) rb.textContent = s.removed.length ? 'Remover ingredientes (' + s.removed.length + ')' : 'Remover ingredientes';
   li.querySelector('[data-wa]').href = WA(singleMessage({ ...entryFor(li), qty: 1 }));
 }
 
@@ -805,6 +992,12 @@ root.addEventListener('click', e => {
     const li = add.closest('.item');
     addToCart(entryFor(li));
     flyToCart(add);
+    if (li.querySelector('.removes')) {
+      $$('.removes input:checked', li).forEach(c => { c.checked = false; });
+      const rb = li.querySelector('.rbtn'), box = li.querySelector('.removes');
+      rb.setAttribute('aria-expanded', 'false'); box.hidden = true;
+      refreshItem(li);
+    }
     const span = add.querySelector('span');
     add.classList.add('done'); add.querySelector('use').setAttribute('href', '#i-check'); span.textContent = 'Adicionado';
     clearTimeout(add._t);
