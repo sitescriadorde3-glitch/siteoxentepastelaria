@@ -202,7 +202,7 @@ html{scrollbar-color:var(--line) var(--bg)}
 .qty .rm{width:auto;padding:0 12px;font:800 .88rem var(--f-body);color:#5C3A22;display:block}
 .qty{flex-wrap:wrap}
 .lact{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
-.line .n small.sem{color:var(--yellow-ink);font-weight:800}
+.line .n small.sem{display:inline-block;margin-top:6px;padding:3px 9px;border-radius:5px;background:#A3261A;color:var(--paper);font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.02em}
 .ing-list{display:grid;margin-top:10px}
 .ck{display:flex;align-items:center;gap:12px;min-height:50px;padding:6px 2px;border-bottom:2px dotted var(--paper-line);font-weight:700;cursor:pointer}
 .ck input{width:24px;height:24px;flex:none;margin:0;accent-color:var(--yellow-ink);cursor:pointer}
@@ -718,7 +718,7 @@ function regionOf(o) { const p = placeOf(o); return p && p.regions ? p.regions.f
 /* Mensagem única do pedido: espelha exatamente o que a comanda mostra. */
 function cartMessage(list, o) {
   const c = calc(list), sh = shipping(o);
-  const items = list.map(e => e.qty + 'x ' + lineLabel(e) + (e.removed && e.removed.length ? '\n- ' + semTxt(e.removed) : ''));
+  const items = list.map(e => e.qty + 'x ' + lineLabel(e) + (e.removed && e.removed.length ? '\n❌ *' + semTxt(e.removed).replace(/\.$/, '').toUpperCase() + '*' : ''));
   let t = '*OXENTE PASTELARIA E SR DOG*\n\n*MEU PEDIDO:*\n\n' + items.join('\n\n') + '\n\n*RESUMO DO PEDIDO:*\n\n';
   if (c.disc) t += 'Promoção trufas (2 por R$ 5,00): −' + brl(c.disc) + '\n';
   t += 'Subtotal: ' + brl(c.total) + '\n';
@@ -767,10 +767,10 @@ function missing(o) {
   if (!o.mode) return [['mode', 'como receber']];
   if (o.mode === 'entrega') {
     const p = placeOf(o);
-    if (!clean(o.name)) m.push(['name', 'seu nome']);
     if (!p) m.push(['place', 'localidade']);
     if (p && p.regions && !o.region) m.push(['region', 'região de Bananeiras']);
     if (p && p.condo && !clean(o.condo)) m.push(['condo', 'nome do condomínio']);
+    if (!clean(o.name)) m.push(['name', 'seu nome']);
     if (!clean(o.street)) m.push(['street', 'endereço']);
     if (!clean(o.number)) m.push(['number', 'número']);
   }
@@ -784,10 +784,10 @@ function deliveryHTML(i) {
     '<fieldset class="fld" data-fld="mode"><legend>Como você quer receber?</legend><div class="opts2">' + radio('mode', 'entrega', 'Entrega em domicílio') + radio('mode', 'retirada', 'Retirada no estabelecimento') + '</div><p class="err">Escolha entrega ou retirada.</p></fieldset>' +
     '<p class="pickup" data-show="retirada" hidden>Retire em R. José Pessoa da Costa, 260 · Centro, Solânea. Sem frete.</p>' +
     '<div data-show="entrega" hidden>' +
-      text('name', 'Seu nome', 'maxlength="60" autocomplete="name" aria-required="true" enterkeyhint="next"', 'Informe seu nome.') +
       '<fieldset class="fld" data-fld="place"><legend>Localidade</legend><div class="opts2">' + PLACES.map(c => radio('place', c.id, c.name, c.regions ? brl(Math.min(...c.regions.map(r => r.fee))) + ' a ' + brl(Math.max(...c.regions.map(r => r.fee))) : 'Frete ' + brl(c.fee))).join('') + '</div><p class="err">Escolha a localidade.</p></fieldset>' +
       '<fieldset class="fld" data-fld="region" data-show="bananeiras" hidden><legend>Qual região de Bananeiras?</legend><div class="opts2">' + bana.regions.map(r => radio('region', r.id, r.name, 'Frete ' + brl(r.fee))).join('') + '</div><p class="err">Escolha a região de Bananeiras.</p></fieldset>' +
       '<div data-show="condominios" hidden>' + text('condo', 'Nome do condomínio', 'maxlength="80" autocomplete="off" aria-required="true" enterkeyhint="next"', 'Informe o nome do condomínio.') + '</div>' +
+      text('name', 'Seu nome', 'maxlength="60" autocomplete="name" aria-required="true" enterkeyhint="next"', 'Informe seu nome.') +
       text('street', 'Endereço ou nome da rua', 'maxlength="80" autocomplete="address-line1" aria-required="true" enterkeyhint="next"', 'Informe o endereço ou a rua.') +
       text('number', 'Número ou identificação do imóvel', 'maxlength="30" autocomplete="off" aria-required="true" enterkeyhint="next"', 'Informe o número ou a identificação (ex.: casa 12, bloco B).') +
       text('ref', 'Ponto de referência <small>(opcional)</small>', 'maxlength="100" autocomplete="off" enterkeyhint="done"', '') +
