@@ -141,7 +141,9 @@ html{scrollbar-color:var(--line) var(--bg)}
 .cat>header{margin-bottom:6px}
 .cat h3{font-size:clamp(1.7rem,6.5vw,2.5rem);color:var(--yellow);display:flex;align-items:baseline;gap:6px 14px;flex-wrap:wrap;text-transform:uppercase;line-height:1.05}
 .cat h3 small{font:800 .95rem var(--f-body);color:var(--ink);text-transform:none}
-.cat .tip{color:var(--muted);margin-top:6px;font-size:.88rem;font-weight:600;max-width:52ch}
+.cat .tip{display:flex;align-items:flex-start;gap:10px;margin-top:12px;padding:10px 14px;border-radius:8px;background:var(--yellow);color:var(--yellow-ink);font-size:.95rem;font-weight:700;line-height:1.35;max-width:54ch}
+.cat .tip svg{width:20px;height:20px;flex:none;margin-top:1px}
+.cat .tip b{font-weight:800;text-decoration:underline;text-underline-offset:3px}
 .cat .intro{color:var(--muted);margin-top:6px;font-size:.95rem}
 .items{margin:0;padding:0;list-style:none}
 .item{display:grid;gap:10px;padding:18px 0 20px;border-bottom:2px dashed var(--line);min-width:0}
@@ -336,6 +338,7 @@ footer small{color:var(--muted)}
   <symbol id="i-minus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M5 12h14"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19l-4 1ZM14 7l3 3"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14ZM20 20l-4-4"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path fill="currentColor" d="M21 14.5A9 9 0 1 1 9.5 3a7.2 7.2 0 0 0 11.5 11.5Z"/></symbol>
   <symbol id="i-ig" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Zm5 5.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></symbol>
@@ -1015,7 +1018,7 @@ function render(query) {
     any = true;
     nav += '<li><a href="#cat-' + cat.id + '" data-nav="' + cat.id + '">' + cat.name + '</a></li>';
     html += '<section class="cat' + (cat.compact ? ' compact' : '') + '" id="cat-' + cat.id + '" aria-labelledby="h-' + cat.id + '"><header><h3 id="h-' + cat.id + '">' + cat.name + (cat.note ? ' <small>' + cat.note + '</small>' : '') + '</h3>' +
-      (cat.intro && !q ? '<p class="intro">' + cat.intro + '</p>' : '') + (cat.items.some(i => i.ingredients) ? '<p class="tip">Não quer algum ingrediente? Adicione ao pedido e toque em “Modificar ingredientes” na comanda.</p>' : '') + '</header><ul class="items">' + items.map(it => itemHTML(cat, it)).join('') + '</ul></section>';
+      (cat.intro && !q ? '<p class="intro">' + cat.intro + '</p>' : '') + (cat.items.some(i => i.ingredients) ? '<p class="tip"><svg aria-hidden="true"><use href="#i-edit"/></svg><span>Não quer algum ingrediente? Adicione ao pedido e toque em <b>Modificar ingredientes</b> na comanda.</span></p>' : '') + '</header><ul class="items">' + items.map(it => itemHTML(cat, it)).join('') + '</ul></section>';
   });
   if (!any) {
     html = '<div class="none"><p><strong>Nada encontrado para “' + esc(query) + '”.</strong> Tente outra palavra ou pergunte no WhatsApp.</p>' +
